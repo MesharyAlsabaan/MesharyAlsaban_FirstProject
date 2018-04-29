@@ -5,10 +5,12 @@ public class CharityAssociation implements IOInterface
 {
 private String name;
 private Donation arDonation[];
+private int age;
 private int grade;
 private int nb;
-public CharityAssociation(String name, int size,int g)
+public CharityAssociation(String name, int size,int g,int age)
 {
+this.age=age;
 this.name = name;
 grade=g;
 arDonation = new Donation[size];
