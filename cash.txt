@@ -1,0 +1,27 @@
+package lap_file;
+
+public class Cash extends Donation
+{
+private String currency;
+public Cash(double amt, String loc, String don, String cur)
+{
+super(amt, loc, don);
+currency = cur;
+}
+public Cash(Cash csh)
+{
+super(csh);
+currency = csh.currency;
+}
+public String getCurrency()
+{
+return currency;
+}
+public void display()
+{
+super.display();
+System.out.println("Currency: " + currency);
+}
+}
+
+

@@ -1,0 +1,26 @@
+package lap_file;
+
+public class Check extends Donation
+{
+private String bankName;
+public Check(double amt, String loc, String don, String bName)
+{
+super(amt, loc, don);
+bankName = bName;
+}
+public Check(Check ck)
+{
+super(ck);
+bankName = ck.bankName;
+}
+public String getBankName()
+{
+return bankName;
+}
+public void display()
+{
+super.display(); 
+System.out.println("Bank Name: " + bankName);
+}
+}
+

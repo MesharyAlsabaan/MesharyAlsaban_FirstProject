@@ -1,0 +1,33 @@
+package lap_file;
+
+import java.io.Serializable;
+public class Donation implements Serializable {
+private double amount;
+private String location;
+private String donorName;
+public Donation(double amt, String loc, String dnr) {
+amount = amt;
+location = loc;
+donorName = dnr;
+}
+public Donation(Donation d) {
+amount = d. amount;
+location = d. location;
+donorName = d. donorName;
+}
+public String getDonorName() {
+return donorName;
+}
+public double getAmount() throws Exception {
+if(amount < 0)
+{
+throw new Exception("Error, amount < 0");
+}
+return amount;
+}
+public void display() {
+System.out.println("Amount: " + amount);
+System.out.println("Location: " + location);
+System.out.println("Donor: " + donorName);
+}
+}

@@ -1,0 +1,104 @@
+package lap_file;
+
+import java.io.*;
+public class CharityAssociation implements IOInterface
+{
+private String name;
+private Donation arDonation[];
+private int nb;
+public CharityAssociation(String name, int size)
+{
+this.name = name;
+arDonation = new Donation[size];
+nb = 0;
+}
+public boolean addDonation(Donation d)
+{
+if(nb < arDonation.length)
+{
+if(d instanceof Cash)
+{
+arDonation[nb] = new Cash((Cash) d);
+}
+else
+{
+arDonation[nb] = new Check((Check)d);
+}
+nb++;
+return true;
+}
+return false;
+}
+public double avgCashDonation(String cur) {
+double sum = 0.00;
+double amnt = 0.00;
+
+for(int i=0; i<nb; i++) {
+if( arDonation[i] instanceof Cash &&
+((Cash)arDonation[i]).getCurrency().equals(cur) ) {
+try {
+amnt = arDonation[i].getAmount();
+sum += amnt;
+}
+catch(Exception e) { }
+}
+}
+if(nb != 0) {
+return sum/nb;
+}
+return sum;
+}
+public Donation getCheck(String bName) {
+for(int i=0; i<nb; i++) {
+if( arDonation[i] instanceof Check &&
+((Check)arDonation[i]).getBankName().equals(bName) )
+{
+return arDonation[i];
+}
+}
+return null;
+}
+public void saveToFile(String fileName, String donor) throws
+IOException {
+File f = new File(fileName);
+FileOutputStream fo = new FileOutputStream(f);
+ObjectOutputStream os = new ObjectOutputStream(fo);
+try {
+for(int i=0; i<nb; i++) {
+if(arDonation[i] instanceof Cash &&
+ arDonation[i].getDonorName().equals(donor)) {
+os.writeObject(arDonation[i]);
+}
+}
+}
+catch(IOException e)
+{
+System.out.println("Error in saveToFile");
+}
+os.close();
+}
+public void loadFromFile(String fileName, Check arrCheck[])throws IOException
+{
+File f = new File(fileName);
+FileInputStream fi = new FileInputStream(f);
+ObjectInputStream is = new ObjectInputStream(fi);
+Donation d;
+int j = 0;
+try
+{
+while (true){
+d = (Donation) is.readObject();
+if( d instanceof Check &&
+ j < arrCheck.length){ // this is optional
+arrCheck[j] = (Check) d;
+j++;
+}
+}
+}
+catch(Exception e)
+{
+	is.close();
+	}
+	}
+	}
+
